@@ -23,7 +23,8 @@ public:
     // void set_name(string n);
     // void set_occupation(int oid);
     // void set_birthdate(Date&);
-    Person(const string, int, int, int, int);
+    Person(const string p_name = "Bully", int dd = 1, int mm = 1, int yy = 1960, int oid = 0);
+    ~Person();
 private:
     string name;
     Date birth_date;
@@ -37,8 +38,14 @@ private:
 Person::Person(const string p_name, int d, int m, int y, int occ_id)
     : birth_date(d,m,y)
 {
+    cout << "Default constructor called" << endl;
     name = p_name;
     occupation = occupation_list[occ_id];
+}
+
+Person::~Person()
+{
+    cout << "Destructor called" << endl;
 }
 
 string Person::get_name() const

@@ -15,6 +15,8 @@ void test_class_person()
     Date p_bd;
     p.get_birthdate(p_bd);
     cout << "P's bday day is "<< p_bd.get_day() << endl;
+    Person *p_array = new Person[4];
+    delete[] p_array;
 }
 
 void test_class_date()
