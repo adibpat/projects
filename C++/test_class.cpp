@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<string> month {
+const string month[13] = {
     "STUB",
     "January",
     "February",
@@ -18,7 +18,7 @@ vector<string> month {
     "September",
     "October",
     "November",
-    "December"
+    "December",
         };
 
 /************************************
@@ -32,6 +32,8 @@ class Date {
      */
     mutable bool cache_valid;
     mutable string cache;
+    /* In-class function definition */
+    void fill_cache() const { cache = month[m]; }
     /* static members have exactly one copy per class
      * This one copy needs to be defined separately.
      */
@@ -41,18 +43,19 @@ public:
     /* static member function cannot be invoked for a particular object */
     static void set_default(int, int, int);
     void print_date();
-    void fill_cache() const;
     /*
      * const keyword after (empty) argument list
      * indicates that these functions do not modify members
      */
     //int day () const { return d++; } -> will throw error
-    int day() const { return d; }
-    int month() const { return m; }
-    int year() const { return y; }
+    int get_day() const { return d; }
+    int get_month() const { return m; }
+    int get_year() const { return y; }
     string get_string() const;
     /*
-     * Self reference 
+     * Self reference
+     * Such functions returning reference can be used for chaining
+     * See implementation of add_dmy()
      */
     Date & add_year(int);
     Date & add_month(int);
@@ -101,15 +104,9 @@ Date& Date::add_day (int n)
     return *this;
 }
 
-void Date::fill_cache () const
-{
-    cache = month[m];
-}
-
 string Date::get_string() const
 {
     if (cache_valid == 0) {
-        cout<< "Filling cache" <<endl;
         fill_cache();
         cache_valid = 1;
     }
@@ -124,6 +121,8 @@ void add_dmy (Date& date, int d, int m, int y)
 
 int main ()
 {
+    //string test = month[1];
+    //cout << test << endl;
     Date my_bday;
     cout << "My birth date is ";
     my_bday.print_date();
@@ -138,7 +137,7 @@ int main ()
     cout << "Copy of Sharda's bday is ";
     copy_of_sha_bday.print_date();
     /* Demonstration of constant member functions */
-    cout << "Get day using const member function on my_day : " << my_bday.day()<< endl;
+    cout << "Get day using const member function on my_day : " << my_bday.get_day()<< endl;
     /*
      * Demonstration of self reference
      * Remember, this is a pointer to the object for which fn was invoked
