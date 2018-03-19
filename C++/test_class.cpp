@@ -40,6 +40,8 @@ class Date {
     static Date default_date;
 public:
     Date(int dd=0, int mm=0, int yy=0);
+    Date(const Date&); // This is the copy constructor
+    Date& operator=(const Date&); // This is copy assignment
     /* static member function cannot be invoked for a particular object */
     static void set_default(int, int, int);
     void print_date();
@@ -112,6 +114,30 @@ string Date::get_string() const
     }
     return (cache);
 }
+
+/* This is invoked when a new object is created as a copy */
+Date::Date (const Date& date)
+{
+    //cout << "Copy constructor used"<<endl;
+    if (this != &date) {
+        d = date.d;
+        m = date.m;
+        y = date.y;
+    }
+}
+
+/* This is invoked during normal copy operations */
+Date& Date::operator=(const Date& date)
+{
+    //cout << "Copy assignment used"<<endl;
+    if (this != &date) {
+        d = date.d;
+        m = date.m;
+        y = date.y;
+    }
+    return *this;
+}
+
 /* End of Date APIs */
 
 void add_dmy (Date& date, int d, int m, int y)
@@ -148,5 +174,6 @@ int main ()
     cout << "copy_of_my_bday after add_dmy is ";
     copy_of_my_bday.print_date();
     cout << "Month in string is " << my_bday.get_string() << endl;
+    copy_of_my_bday = sha_bday;
     return (0);
 }
