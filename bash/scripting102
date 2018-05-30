@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ $1 -eq 1 ]
+then
+    echo "This script will exit with a 0 exit status."
+    exit 0
+elif [ $1 -eq 2 ]
+then
+    if [ -f $2 ]
+    then
+        exit 0
+    elif [ -d $2 ]
+    then
+        exit 1
+    else
+        exit 2
+    fi
+elif [ $1 -eq 3 ]
+then
+    cat /etc/shadow
+    if [ $? -eq 0 ]
+    then
+        exit 0
+    else
+        exit 1
+    fi
+fi

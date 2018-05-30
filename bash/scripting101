@@ -1,0 +1,76 @@
+#!/bin/bash
+
+if [ "$1" = "exercise" ]
+then
+    echo "Executing exercise problem ${2}"
+    if [ $2 -eq 1 ]
+    then
+        echo "Scripting is Fun"
+    elif [ $2 -eq 2 ]
+    then
+        MY_STR="Scripting is more Fun"
+        echo ${MY_STR}
+    elif [ $2 -eq 3 ]
+    then
+        MY_CMD=`hostname`
+        echo ${MY_CMD}
+    elif [ $2 -eq 4 ]
+    then
+        if [ -e /Users/abpatwar/project/bash/passwords ]
+        then
+            echo "Shadow passwords are enabled."
+            if [ -w /Users/abpatwar/project/bash/passwords ]
+            then
+                echo "You have permissions to edit /etc/shadow."
+            else
+                echo "You do NOT have permissions to edit /etc/shadow."
+            fi
+        fi
+    elif [ $2 -eq 5 ]
+    then
+        MY_STR="man bear pig dog cat sheep"
+        for i in ${MY_STR}
+        do
+            echo $i
+        done
+    elif [ $2 -eq 6 ]
+    then
+        for i in "$@"
+        do
+            if [ $i -gt 2]
+            then
+                ARGS='b c d f x'
+                for j in ${ARGS}
+                do
+                    TEST="-${j} ${i}"
+                    if [ ${TEST} ]
+                    then
+                        echo "${3} qualified option $i"
+                    fi
+                done
+                echo `ls -l ${3}`
+            fi
+        done
+    fi
+else
+
+    #variable assignment
+    MY_VAR1="Aditya"
+    MY_VAR2="Aditya P"
+    echo $MY_VAR1
+    echo "Trying to print Aditya Patwardhan"
+    echo "$MY_VAR2atwardhan"
+    echo "${MY_VAR2}atwardhan"
+    
+    #hostname is a utility
+    echo `hostname`
+    
+    # $@ specifies all arguments from index 1 to n when script name is argument 0
+    echo "Running script ${0}"
+    
+    
+    for i in $*
+    do
+        echo $i
+    done  
+fi

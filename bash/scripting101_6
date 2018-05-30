@@ -1,0 +1,15 @@
+#!/bin/bash
+        
+for i in $@
+do
+    ARGS='b c d f x'
+    for j in ${ARGS}
+    do
+        TEST="-${j} ${i}"
+        if [ ${TEST} ]
+        then
+            echo "${i} qualified option ${j}"
+        fi
+    done
+    echo `ls -l ${i}`
+done

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+read -p "How many lines to read from /etc/passwd file: " LINE_NUM
+
+while [ $LINE_NUM -gt 0 ]
+do
+    read LINE
+    echo "${LINE}"
+    ((LINE_NUM--))
+done < /etc/passwd
+
+echo "Total lines printed: ${LINE_NUM}"
+

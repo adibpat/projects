@@ -1,0 +1,24 @@
+#!/bin/bash
+
+read -p "Specify location of files to copy from: " S_DIR
+read -p "Specify location of files to copy to: " D_DIR
+read -p "Specify the extension of files: " EXT
+read -p "What prefix to use for files: " PREFIX
+
+cd ${S_DIR}
+for FILE in *.${EXT}
+do
+    if [ -n PREFIX ]
+    then
+        NEW_FILE="$PREFIX-${FILE}"
+    else
+        NEW_FILE="`date +%F`-${FILE}"
+    fi
+    if [ -d ${D_DIR} ]
+    then
+        cp ${FILE} ${D_DIR}/${NEW_FILE}
+    else
+        mkdir -p ${D_DIR}
+        cp ${FILE} ${D_DIR}/${NEW_FILE}
+    fi
+done
