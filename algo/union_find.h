@@ -10,4 +10,9 @@ typedef struct Graph {
     Edge *edge;
 } Graph;
 
+typedef struct Subset {
+    int parent;
+    int rank;
+} Subset;
+
 Graph * create_graph (int V, int E);
