@@ -15,4 +15,4 @@ quick_sort.o : quick_sort.c
 	$(CC) -c quick_sort.c 
 
 clean:
-	rm libmysortlib.so quick_sort.o sort_driver.o
+	rm libmysortlib.so quick_sort.o sort_driver.o qsort
