@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "my_sort.h"
 
 void swap (int *a, int *b) 
 {
@@ -36,16 +37,4 @@ void quick_sort_driver (int arr_size, int *arr)
 {
     //printf("Driver program called\n");
     quick_sort (arr, 0, arr_size-1);
-}
-
-int main (int argc, char *argv[]) 
-{
-    int arr[] = {5,2,1,7,6,4};
-    quick_sort_driver(6, arr);
-    for(size_t i = 0; i < 6; i++)
-    {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-    return 0;
 }

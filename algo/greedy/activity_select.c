@@ -3,7 +3,7 @@
 
 void select_activity(int arr_size, int *start_arr, int *finish_arr)
 {
-    
+    // todo
 }
 
 int main() {

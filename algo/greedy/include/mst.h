@@ -6,4 +6,6 @@
 
 void Kruskal_MST(Graph *graph);
 
+void Prim_MST (Graph *graph);
+
 #endif
