@@ -10,6 +10,7 @@ sort_driver.o: sort_driver.c
 
 libmysortlib.so : quick_sort.o
 	$(CC) -shared -o libmysortlib.so quick_sort.o
+	cp -p libmysortlib.so /Users/abpatwar/my_projects/projects/algo/greedy/
 
 quick_sort.o : quick_sort.c
 	$(CC) -c quick_sort.c 
