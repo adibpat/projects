@@ -1,6 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/time.h>
+
+struct timeval  tv1, tv2;
 
 int reverse (int x) {
     char str[100];
@@ -130,6 +133,77 @@ int maxSubArray(int* nums, int numsSize) {
     return sum;
 }
 
+double median_of_array (int *array, int len)
+{
+    if (len == 0) return (0);
+    return array[len/2];
+}
+/*
+double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Size) {
+    int *A, *B, alen, blen;
+    if (nums1Size < nums2Size) {
+        A = nums1;
+        B = nums2;
+        alen = nums1Size;
+        blen = nums2Size;
+    } else {
+        A = nums2;
+        B = nums1;
+        alen = nums2Size;
+        blen = nums1Size;
+    }
+    if (alen == 0) return (median_of_array(B, blen));
+    if (alen == 1) {
+        // blen is also 1
+        if (blen == 1) {
+            return ((A[0] + B[0])/2);
+        } 
+        else if (blen%2) { // blen is odd
+            return (-1);
+        }
+        // blen is even
+        return (median_of_arrays_with_1_elem(B[blen/2], B[(blen/2)-1], A[0]));
+    }
+    if (alen == 2) {
+        // blen is also 2
+
+        // blen is odd
+
+        // blen is even
+
+    }
+    
+
+    // complete code before this line
+    return (-1);
+}
+*/
+short Parity1 (unsigned long x)
+{
+    short result = 0;
+    
+    gettimeofday(&tv1, NULL);
+    while(x) {
+        result = result ^ (x & 1);
+        x >>= 1;
+    }
+    gettimeofday(&tv2, NULL);
+    printf("Took %f sec to execute\n", (double) ((tv2.tv_usec - tv1.tv_usec) / 1000000) +
+         (double) (tv2.tv_sec - tv1.tv_sec));
+    return result;
+}
+
+short Parity2 (unsigned long x)
+{
+    short result = x;
+
+    while(x) {
+        result = result ^ (x & 1);
+        x &= (x-1);
+    }
+    return result;
+}
+
 int main ()
 {   
     int num;
@@ -149,5 +223,7 @@ int main ()
     int arr3[] = {-2,1,-3,4,-1,2,1,-5,4};
     printf("Size of arr3 is %ld\n", sizeof(arr3)/sizeof(arr3[0]));
     printf("Max sub-array size is %d\n", maxSubArray(arr3, sizeof(arr3)/sizeof(arr3[0])));
+    printf("Parity of 364768825361 is %d\n", Parity1(364768825361));
+
     return (0);
 }

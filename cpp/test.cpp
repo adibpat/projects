@@ -29,13 +29,14 @@ int main (void) {
      * Obviously it will allocate some additional memory but that is not the topic of discussion
      */
     vector<int> v;
+    vector<int> *v_ptr = &v;
 
     v.push_back(11);
     v.push_back(33);
 
     cout << v.size() << endl; /* Answer is 2 */
 
-    v.push_back(55);
+    v_ptr->push_back(55);
     v.push_back(44);
 
     v[5] = 55; /* This is wrong because this vector does not have a 5th element yet. 
@@ -110,8 +111,6 @@ int main (void) {
         m = mm;
         y = yy;
     }
-
-    
 
     return(0);
 }
