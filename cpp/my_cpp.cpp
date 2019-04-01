@@ -145,6 +145,13 @@ int main ()
     c1.set_data(0,0);
     cout << "\nc1 data: "; c1.show_data();
     cout << "\nc6 data: "; c6.show_data();
+
+    Complex *c_ptr = new Complex;
+    *c_ptr = c3;
+    c_ptr->show_data();
+
+    int *i_ptr = new int[10];
+    delete[] i_ptr;
     
     return (0);
 }
