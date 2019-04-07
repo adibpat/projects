@@ -391,6 +391,59 @@ public:
         }
         return;
     }
+    void max_min_arrange (vector<int> &a)
+    {
+        sort(a.begin(), a.end());
+        int min = 0, max = a.size()-1, max_elem = a[a.size()-1]+1;
+        for (int i = 0; i < a.size(); i++) {
+            if (i%2 == 0) {
+                a[i] = a[i] + (a[max]%max_elem)*max_elem;
+                max--;
+            } else {
+                a[i] = a[i] + (a[min]%max_elem)*max_elem;
+                min++;
+            }
+        }
+        for (int i = 0; i < a.size(); i++) {
+            a[i] /= max_elem;
+        }
+        return;
+    }
+    void even_smaller_odd_greater (vector<int> &a)
+    {
+        for (int i = 0; i < a.size(); i++) {
+            switch (i%2) {
+            case 0:
+                if (a[i] > a[i+1]) {
+                    swap(&a[i], &a[i+1]);
+                }
+                break;
+            case 1:
+                if (a[i] < a[i+1]) {
+                    swap(&a[i], &a[i+1]);
+                }
+                break;
+            default:
+                break;
+            }
+        }
+        return;
+    }
+    void segregate_even_odd (vector<int> &a)
+    {
+        int i = -1;
+        for (int j = 0; j < a.size(); j++) {
+            if (a[j] % 2 == 0) {
+                swap(&a[++i], &a[j]);
+            }
+        }
+        return;
+    }
+};
+
+class order_stat {
+public:
+    
 };
 
 int main ()
@@ -399,12 +452,14 @@ int main ()
     int arr_helper[] = {1,1};
     vector<int> arr(arr_helper, arr_helper + sizeof(arr_helper)/sizeof(int));
     //s.rotate(arr, 3);
+    /*
     for (int iter = 0; iter < arr.size(); iter++)
     {
         cout << iter << " ==> " << arr[iter] << endl;
     }
+    */
     //cout << "Found 0 at location " << s.rotated_array_bs(arr, 5) << endl;
-    rotate_array r;
+    //rotate_array r;
     //cout << r.search(arr, 0, arr.size()-1, 3);
     /*
       cout << "Sum found ";
@@ -427,7 +482,10 @@ int main ()
     //re.move_zeros_to_end(arr1);
     //re.pos_neg_back_to_back_recur(arr1, 0, arr1.size()-1);
     //re.form_biggest_number(arr1);
-    re.found_at_pos(arr1,1);
+    //re.found_at_pos(arr1,1);
+    //re.max_min_arrange(arr1);
+    //re.even_smaller_odd_greater(arr1);
+    re.segregate_even_odd(arr1);
     print_array(arr1);
 
     return (0);
