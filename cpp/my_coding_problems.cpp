@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <array>
+#include <math.h>
 
 using namespace std;
 
@@ -87,6 +88,14 @@ void print_array(vector<int> &a)
         cout << a[i] << " ";
     }
     cout << endl;
+}
+
+void print_array(vector<int> &a, int low, int high)
+{
+    for (int i = low; i <= high; i++) {
+        cout << a[i] << " ";
+    }
+    cout << endl << "Array printing complete" << endl;
 }
     
 class rotate_array {    
@@ -189,7 +198,6 @@ public:
 
 class rearrange {
 public:
-    
     void index_as_value_at_index (vector<int> &a)
     {
         int arr_size = a.size();
@@ -311,6 +319,58 @@ public:
         }
         return (min_swaps);
     }
+    void pos_neg_back_to_back_recur (vector<int> &a, int low, int high)
+    {
+        cout << "Entered pos_neg_back_to_back_recur(), low = " << low << ", high = " << high << endl;
+        if (high == low) return;
+        int *result = new int[high-low+1];
+        int mid = (high + low)/2;
+        pos_neg_back_to_back_recur(a, low, mid);
+        cout << "Returned from low="<<low<<", high="<<mid<<endl;
+        pos_neg_back_to_back_recur(a, mid+1, high);
+        cout << "Returned from low="<<mid+1<<", high="<<high<<endl;
+        int iter1 = low, iter2 = mid+1, arr_iter = low;
+        while (iter1 <= mid || iter2 <= high) {
+            if (a[iter1] < 0 && iter1 <= mid) {
+                result[arr_iter++] = a[iter1++];
+            } else if (a[iter2] < 0 && iter2 <= high) {
+                result[arr_iter++] = a[iter2++];
+            } else if (iter1 <= mid) {
+                result[arr_iter++] = a[iter1++];
+            } else if (iter2 <= high) {
+                result[arr_iter++] = a[iter2++];
+            }
+        }
+
+        for (int i = low; i <= high; i++) {
+            a[i] = result[i];
+        }
+        cout << "Completed pos_neg_back_to_back_recur(), low = " << low << ", high = " << high << endl;
+        print_array(a, low, high);
+        delete[] (result);
+    }
+    bool is_greater_than(int a, int b) {
+        int avar = a*pow(10,ceil(log10(b))) + b;
+        int bvar = b*pow(10,ceil(log10(a))) + a;
+        bool res = avar > bvar;
+        cout << "res is " << avar <<" > " << bvar << " == " << res << endl;
+        return res;
+    }
+    void form_biggest_number(vector<int> &a)
+    {
+        for (int j = 1; j < a.size(); j++) {
+            if (is_greater_than(a[j], a[j-1])) {
+                int temp = a[j];
+                int i = j-1;
+                do {
+                    a[i+1] = a[i];
+                    i--;
+                } while(is_greater_than(temp, a[i]));
+                a[i+1] = temp;
+            }
+        }
+        return;
+    }
 };
 
 int main ()
@@ -323,7 +383,7 @@ int main ()
     {
         cout << iter << " ==> " << arr[iter] << endl;
     }
-    cout << "Found 0 at location " << s.rotated_array_bs(arr, 5) << endl;
+    //cout << "Found 0 at location " << s.rotated_array_bs(arr, 5) << endl;
     rotate_array r;
     //cout << r.search(arr, 0, arr.size()-1, 3);
     /*
@@ -334,17 +394,19 @@ int main ()
       cout << "No" << endl;
       }
     */
-    r.split_and_add_back(arr, 2,1);
-    print_array(arr);
+    //r.split_and_add_back(arr, 2,1);
+    //print_array(arr);
 
     cout << "Rearrangement problems begin " << endl;
     rearrange re;
-    int arr_help1[] = {1,9,8,4,0,0,2,7,0,6,0};
+    int arr_help1[] = {54,546,548,60};
     vector<int> arr1(arr_help1, arr_help1 + sizeof(arr_help1)/sizeof(int));
     //re.index_as_value_at_index(arr1, 1);
     //re.larger_even_smaller_odd (arr1);
     //re.alternate_pos_neg(arr1,1);
-    re.move_zeros_to_end(arr1);
+    //re.move_zeros_to_end(arr1);
+    //re.pos_neg_back_to_back_recur(arr1, 0, arr1.size()-1);
+    re.form_biggest_number(arr1);
     print_array(arr1);
 
     return (0);
