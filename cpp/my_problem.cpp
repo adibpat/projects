@@ -229,8 +229,24 @@ public:
     }
     int swaps_to_bring_elems_together (vector<int> &a, int k)
     {
-        
-        return (0);
+        /* Find number of elements to chunk together */
+        int chunk = 0;
+        for (int i = 0; i < a.size(); i++) {
+            if (a[i] <= k) chunk++;
+        }
+        /* Establish baseline in the first window */
+        int greater = 0;
+        for (int i = 0; i < chunk; i++) {
+            if (a[i] > k) greater++;
+        }
+        int min_swaps = greater;
+        /* Now move the sliding windown to find the min value of greater */
+        for (int i = 1, j = i + chunk; j < a.size(); i++, j++) {
+            if (a[i-i] <= k) greater--;
+            if (a[j] <= k) greater++;
+            if (min_swaps < greater) min_swaps = greater;
+        }
+        return (min_swaps);
     }
 };
 
