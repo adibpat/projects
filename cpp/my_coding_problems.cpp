@@ -371,6 +371,26 @@ public:
         }
         return;
     }
+    void found_at_pos (vector<int> &a)
+    {
+        vector<int> result (a.size(),0);
+        for (int i = 0; i < a.size(); i++) {
+            result[a[i]] = i;
+        }
+        a = result;
+        return;
+    }
+    void found_at_pos (vector<int> &a, int k)
+    {
+        int found_at = 0, next_index = a[found_at], saved_index = a[next_index];
+        while (next_index != 0) {
+            a[next_index] = found_at;
+            found_at = next_index;
+            next_index = saved_index;
+            saved_index = a[next_index];
+        }
+        return;
+    }
 };
 
 int main ()
@@ -399,14 +419,15 @@ int main ()
 
     cout << "Rearrangement problems begin " << endl;
     rearrange re;
-    int arr_help1[] = {54,546,548,60};
+    int arr_help1[] = {2,0,1,4,5,3};
     vector<int> arr1(arr_help1, arr_help1 + sizeof(arr_help1)/sizeof(int));
     //re.index_as_value_at_index(arr1, 1);
     //re.larger_even_smaller_odd (arr1);
     //re.alternate_pos_neg(arr1,1);
     //re.move_zeros_to_end(arr1);
     //re.pos_neg_back_to_back_recur(arr1, 0, arr1.size()-1);
-    re.form_biggest_number(arr1);
+    //re.form_biggest_number(arr1);
+    re.found_at_pos(arr1,1);
     print_array(arr1);
 
     return (0);
