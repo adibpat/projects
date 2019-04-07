@@ -10,24 +10,36 @@ X big(X a, X b)
     return (b);
 }
 
-template <class Y> class ArrayList {
-    struct ControlBlock {
-        int capacity;
-        Y *arr_ptr;
-    };
-    ControlBlock *s;
+/* Class Template */
+template <class Y>
+class ArrayList {
+    struct Arep;
+    Arep *s;
 public:
-    ArrayList (int x)
-    {
-        s = new ControlBlock;
-        s->capacity = x;
-        s->arr_ptr = new Y[s->capacity];
-    }
+    ArrayList ();
+};
+
+template<class Y>
+struct ArrayList<Y>::Arep {
+    int capacity;
+    Y *arr_ptr;
+};
+
+template <class Y>
+ArrayList<Y>::ArrayList ()
+{
+    s = new Arep(0, Y());
+}
+
+struct person {
+    int age;
+    char* name;    
 };
 
 int main ()
 {
     cout << big(10.2, 3.2);
-    ArrayList<int> list(4);
+    ArrayList<int> list();
+    person *adi = new person(0, char());
     return (0);
 }
